@@ -29,8 +29,8 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'my-dashboard',
-            templateUrl: '../templates/dashboard.component.html',
-            styleUrls: ['../css/dashboard.component.css']
+            templateUrl: 'app/dashboard.component.html',
+            styleUrls: ['app/dashboard.component.css']
         }), 
         __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router])
     ], DashboardComponent);

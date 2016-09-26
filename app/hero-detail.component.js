@@ -11,15 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var hero_service_1 = require('./hero.service');
-var hero_1 = require('./hero');
 var HeroDetailComponent = (function () {
     function HeroDetailComponent(heroService, route) {
         this.heroService = heroService;
         this.route = route;
     }
-    HeroDetailComponent.prototype.goBack = function () {
-        window.history.back();
-    };
     HeroDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.forEach(function (params) {
@@ -28,18 +24,22 @@ var HeroDetailComponent = (function () {
                 .then(function (hero) { return _this.hero = hero; });
         });
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', hero_1.Hero)
-    ], HeroDetailComponent.prototype, "hero", void 0);
+    HeroDetailComponent.prototype.save = function () {
+        this.heroService.update(this.hero)
+            .then(this.goBack);
+    };
+    HeroDetailComponent.prototype.goBack = function () {
+        window.history.back();
+    };
     HeroDetailComponent = __decorate([
         core_1.Component({
             selector: 'my-hero-detail',
-            templateUrl: '../templates/hero-details.html'
+            templateUrl: 'app/hero-detail.component.html',
+            styleUrls: ['app/heroes.component.css']
         }), 
         __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute])
     ], HeroDetailComponent);
     return HeroDetailComponent;
 }());
 exports.HeroDetailComponent = HeroDetailComponent;
-//# sourceMappingURL=hero-details.component.js.map
+//# sourceMappingURL=hero-detail.component.js.map

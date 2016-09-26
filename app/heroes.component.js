@@ -18,7 +18,32 @@ var HeroesComponent = (function () {
     }
     HeroesComponent.prototype.getHeroes = function () {
         var _this = this;
-        this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
+        this.heroService
+            .getHeroes()
+            .then(function (heroes) { return _this.heroes = heroes; });
+    };
+    HeroesComponent.prototype.add = function (name) {
+        var _this = this;
+        name = name.trim();
+        if (!name) {
+            return;
+        }
+        this.heroService.create(name)
+            .then(function (hero) {
+            _this.heroes.push(hero);
+            _this.selectedHero = null;
+        });
+    };
+    HeroesComponent.prototype.delete = function (hero) {
+        var _this = this;
+        this.heroService
+            .delete(hero.id)
+            .then(function () {
+            _this.heroes = _this.heroes.filter(function (h) { return h !== hero; });
+            if (_this.selectedHero === hero) {
+                _this.selectedHero = null;
+            }
+        });
     };
     HeroesComponent.prototype.ngOnInit = function () {
         this.getHeroes();
@@ -32,8 +57,8 @@ var HeroesComponent = (function () {
     HeroesComponent = __decorate([
         core_1.Component({
             selector: 'my-heroes',
-            templateUrl: '../templates/hero-list.html',
-            styleUrls: ['../css/hero_style.css', '../css/hero_style2.css']
+            templateUrl: 'app/heroes.component.html',
+            styleUrls: ['app/heroes.component.css']
         }), 
         __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router])
     ], HeroesComponent);
